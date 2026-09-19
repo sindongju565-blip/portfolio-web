@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>신동주 · 2026 Portfolio</title>
+<script>
+/* Runs before the stylesheets and the body so it beats both the browser's
+   scroll restoration and its jump to a #fragment.
+   1. scrollRestoration = manual  -> a reload does not re-apply the old scrollY
+   2. strip any leftover #hash    -> project jumps record one via replaceState,
+      and on the next load the browser would scroll straight to it
+   Together: every reload and every first visit opens on the Hero. */
+(function () {
+  try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch (e) {}
+  try {
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  } catch (e) {}
+})();
+</script>
+<meta name="description" content="서비스/프로덕트 기획자 신동주의 2026 포트폴리오. 학원 ERP 고도화, 시니어 AI 케어, 숏폼 OTT, 케이크 주문 서비스.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@500;600;700&family=Figtree:wght@400&family=Playfair+Display:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">본문 바로가기</a>
+
+<div class="shell">
+
+  <!-- ============ NAVIGATION : TOP (>= 768px) ============ -->
+  <header class="nav-top" data-nav="top">
+    <nav class="nav-top__inner" aria-label="주요 메뉴">
+      <a class="nav-top__logo" href="#home" data-nav-home>Portfolio</a>
+      <ol class="nav-top__projects nav-list">
+        <li><a class="nav-item" href="#project-01"><span class="nav-item__label">학원 ERP 서비스 고도화</span><span class="nav-item__num">01</span></a></li>
+        <li><a class="nav-item" href="#project-02"><span class="nav-item__label">시니어 AI 케어 서비스 기획</span><span class="nav-item__num">02</span></a></li>
+        <li><a class="nav-item" href="#project-03"><span class="nav-item__label">숏폼 OTT 서비스 런칭</span><span class="nav-item__num">03</span></a></li>
+        <li><a class="nav-item" href="#project-04"><span class="nav-item__label">케이크 주문 서비스 구축</span><span class="nav-item__num">04</span></a></li>
+      </ol>
+      <div class="nav-top__actions">
+        <a class="link-muted" data-resume href="#">Download</a>
+        <a class="link-muted" data-mailto href="#">Contact Us</a>
+      </div>
+    </nav>
+    <div class="progress" aria-hidden="true"><span class="progress__fill"></span></div>
+  </header>
+
+  <!-- ============ NAVIGATION : MOBILE (Figma 215:73843 Default / 215:73850 Open) ============ -->
+  <header class="nav-mobile" data-nav="mobile">
+    <div class="nav-mobile__bar">
+      <a class="nav-mobile__logo" href="#home" data-nav-home>Portfolio</a>
+      <button type="button" class="nav-mobile__toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+    <div class="progress" aria-hidden="true"><span class="progress__fill"></span></div>
+  </header>
+
+  <div class="nav-mobile__panel" id="mobileMenu" hidden>
+    <div class="nav-mobile__bar nav-mobile__bar--open">
+      <a class="nav-mobile__logo" href="#home" data-nav-home>Portfolio</a>
+      <button type="button" class="nav-mobile__toggle" id="menuClose">Close</button>
+    </div>
+    <nav class="nav-mobile__content" aria-label="모바일 메뉴">
+      <ol class="nav-list">
+        <li><a class="nav-item" href="#project-01"><span class="nav-item__label">학원 ERP 서비스 고도화</span><span class="nav-item__num">01</span></a></li>
+        <li><a class="nav-item" href="#project-02"><span class="nav-item__label">시니어 AI 케어 서비스 기획</span><span class="nav-item__num">02</span></a></li>
+        <li><a class="nav-item" href="#project-03"><span class="nav-item__label">숏폼 OTT 서비스 런칭</span><span class="nav-item__num">03</span></a></li>
+        <li><a class="nav-item" href="#project-04"><span class="nav-item__label">케이크 주문 서비스 구축</span><span class="nav-item__num">04</span></a></li>
+      </ol>
+      <hr class="rule">
+      <a class="link-muted" data-resume href="#">Download</a>
+      <a class="link-muted" data-mailto href="#">Contact</a>
+      <hr class="rule">
+    </nav>
+  </div>
+
+  <!-- ============ MAIN ============ -->
+  <main id="main" class="main">
+
+    <!-- ---------- HERO (Figma 215:73891 / 1030 x 579) ---------- -->
+    <section class="hero slide-dark" id="home" aria-label="표지">
+      <div class="hero__top">
+        <span class="hero__badge">
+          <span class="hero__badge-a">Sin Dongju</span>
+          <span class="hero__badge-b">Designer</span>
+        </span>
+        <ul class="hero__tags">
+          <li>UI UX MOBILE</li>
+          <li>WEB DESIGN</li>
+          <li>BX MICRO SITE</li>
+          <li>PROMOTIONS</li>
+        </ul>
+      </div>
+
+      <div class="hero__body">
+        <p class="hero__script" aria-hidden="true">Portfolio<span>.</span></p>
+        <h1 class="hero__title">
+          <span class="hero__line hero__line--1">2026</span>
+          <span class="hero__line hero__line--2">PORTFOLIO</span>
+          <span class="hero__line hero__line--3">PRODUCT DESIGN</span>
+        </h1>
+      </div>
+    </section>
+
+    <!-- ---------- PROFILE / 이력서 (Figma 215:73894 / 1030 x 578) ---------- -->
+    <section class="profile slide-dark" id="profile" aria-label="프로필">
+      <div class="profile__grid">
+
+        <div class="profile__identity">
+          <p class="profile__name">
+            <span class="profile__name-ko">신 동 주</span>
+            <span class="profile__name-en">SIN DONG JU</span>
+          </p>
+          <p class="profile__intro">
+            사용자 데이터를 기반으로 Painpoint를 발견하고 서비스를 논리적으로 연결하는 기획자입니다.<br>
+            사용자 경험 향상을 통해 서비스의 편의성을 높이고 비즈니스 성과 달성을 목표로 합니다.
+          </p>
+          <p class="profile__meta">
+            <span>1998 04 15</span><span class="sep">|</span><span>+82 10 4782 5067</span><span class="sep">|</span>
+          </p>
+          <p class="profile__meta"><a data-mailto href="#">sindongju_@naver.com</a></p>
+        </div>
+
+        <div class="profile__experience">
+          <h2 class="deck-label deck-label--rule">Experience</h2>
+          <div class="career">
+            <div class="career__when">
+              <p class="career__org">(주)뉴젠시스</p>
+              <p class="career__period">2025.12 – 2026.08</p>
+            </div>
+            <div class="career__what">
+              <p class="career__role">서비스 기획자</p>
+              <ul class="career__list">
+                <li>학원 관리 시스템 서비스 구조 및 프로세스 설계</li>
+                <li>학사·시험·학습관리 핵심 기능 및 화면 기획</li>
+                <li>개발 커뮤니케이션 및 QA·서비스 구축 참여</li>
+              </ul>
+            </div>
+          </div>
+          <div class="career">
+            <div class="career__when">
+              <p class="career__org">위치컴퍼니</p>
+              <p class="career__period">2024.07 – 2025.03</p>
+            </div>
+            <div class="career__what">
+              <p class="career__role">단독 디자이너, 프로덕트 디자이너</p>
+              <ul class="career__list">
+                <li>숏폼 OTT 서비스 기획부터 런칭·운영까지 참여</li>
+                <li>사용자 Flow 및 모바일 UX 구조 설계</li>
+                <li>서비스 개선 및 브랜드 콘텐츠 제작</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile__skill">
+          <h2 class="deck-label">Skill</h2>
+          <p class="skill-list">
+            <span>요구사항 정의</span><span>User Flow</span><span>IA</span><span>화면기획</span><span>Figma</span><span>Notion</span><span>Slack</span><span>PowerPoint</span><span>ChatGPT</span><span>Claude</span><span>QA</span><span>SQL</span><span>Photoshop</span>
+          </p>
+        </div>
+
+        <div class="profile__education">
+          <h2 class="deck-label deck-label--rule">Education</h2>
+          <ul class="edu">
+            <li><span class="edu__period">2025.09 – 2025.10</span><span class="edu__name">[웅진씽크빅X러닝스푼즈] AI를 활용한 DT 서비스 기획자 4기</span></li>
+            <li><span class="edu__period">2025.06 – 2025.09</span><span class="edu__name">[인프런] 실무자를 위한 구글애널리틱스(GA4+GTM) 활용법</span></li>
+            <li><span class="edu__period">2025.03 – 2025.04</span><span class="edu__name">[인프런] ProtoPie Master Courses 수료</span></li>
+            <li><span class="edu__period">2024.09 – 2024.11</span><span class="edu__name">[인프런] 피그마 배리어블을 활용한 디자인 시스템 구축하기</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ---------- INDEX (Figma 215:73897 / 1030 x 579.375) ---------- -->
+    <section class="index slide-dark" id="index" aria-labelledby="indexTitle">
+      <h2 class="index__title" id="indexTitle">Index</h2>
+      <ol class="index__grid">
+
+        <li class="card">
+          <a class="card__link" href="#project-01">
+            <span class="card__badge">01</span>
+            <span class="card__thumb"></span>
+            <span class="card__eyebrow">학원 ERP 서비스 고도화</span>
+            <span class="card__desc">서비스 기획 및 모바일 UX 구조 설계 및 UI 디자인</span>
+            <span class="card__kind">PERSONAL WORK</span>
+            <span class="card__tags">Ux <i>|</i> Ui <i>|</i> Graphic <i>|</i> Branding</span>
+          </a>
+        </li>
+
+        <li class="card">
+          <a class="card__link" href="#project-02">
+            <span class="card__badge">02</span>
+            <span class="card__thumb"></span>
+            <span class="card__eyebrow">시니어 AI 케어 서비스 기획</span>
+            <span class="card__desc">기획 및 모바일 UX 구조 설계 및 UI 디자인</span>
+            <span class="card__kind">PERSONAL WORK</span>
+            <span class="card__tags">Ux <i>|</i> Ui <i>|</i> Graphic <i>|</i> Branding</span>
+          </a>
+        </li>
+
+        <li class="card">
+          <a class="card__link" href="#project-03">
+            <span class="card__badge">03</span>
+            <span class="card__thumb"></span>
+            <span class="card__eyebrow">숏폼 OTT 서비스 런칭</span>
+            <span class="card__desc">신규 유저의 콘텐츠 시청 이탈 문제 개선</span>
+            <span class="card__kind">PERSONAL WORK</span>
+            <span class="card__tags">Ux <i>|</i> Ui <i>|</i> Graphic <i>|</i> Branding</span>
+          </a>
+        </li>
+
+        <li class="card">
+          <a class="card__link" href="#project-04">
+            <span class="card__badge">04</span>
+            <span class="card__thumb"></span>
+            <span class="card__eyebrow">케이크 주문 서비스 구축</span>
+            <span class="card__desc">케이크 주문 제작 플랫폼</span>
+            <span class="card__kind">PERSONAL WORK</span>
+            <span class="card__tags">Ux <i>|</i> Ui <i>|</i> Graphic <i>|</i> Branding</span>
+          </a>
+        </li>
+
+      </ol>
+    </section>
+
+    <!-- ---------- PROJECT 01 (Figma 215:73901 "content - 01") ---------- -->
+    <section class="project" id="project-01" aria-label="학원 ERP 서비스 고도화">
+      <div class="project__slides" data-slides="01"></div>
+    </section>
+
+    <!-- ---------- PROJECT 02 / 03 / 04 (slide stacks) ---------- -->
+    <section class="project" id="project-02" aria-label="시니어 AI 케어 서비스 기획">
+      <div class="project__slides" data-slides="02"></div>
+    </section>
+
+    <section class="project" id="project-03" aria-label="숏폼 OTT 서비스 런칭">
+      <div class="project__slides" data-slides="03"></div>
+    </section>
+
+    <section class="project" id="project-04" aria-label="케이크 주문 서비스 구축">
+      <div class="project__slides" data-slides="04"></div>
+    </section>
+
+    <!-- ---------- FOOTER (Figma 215:73731 / 73754 / 73777) ---------- -->
+    <footer class="site-footer">
+      <div class="site-footer__top">
+        <div class="site-footer__logo">
+          <a href="#home" data-nav-home>Portfolio</a>
+        </div>
+        <div class="site-footer__links">
+          <a data-resume href="#">Download</a>
+          <a data-mailto href="#">Contact Us</a>
+          <a href="#home" data-nav-home>Back to the top</a>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <div class="site-footer__legal">
+          <span class="site-footer__copy">© Portfolio</span>
+          <span>Legal</span>
+          <span>Privacy</span>
+        </div>
+        <span>All Rights Reserved</span>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<!-- 프로젝트 전환 오버레이 (JS 가 열고 닫습니다) -->
+<div class="transition" id="projectTransition" hidden>
+  <div class="transition__bar" role="progressbar" aria-label="프로젝트 불러오는 중"
+       aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <span class="transition__fill"></span>
+  </div>
+</div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

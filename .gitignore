@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+._*
+
+# 작업용 임시 파일
+__*.html
+*.bak
+*.tmp
+_originals/
