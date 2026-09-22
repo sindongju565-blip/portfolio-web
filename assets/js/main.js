@@ -67,7 +67,7 @@
      (CSS/JS 의 ?v= 와 같은 역할)
      경로 자체에는 붙이지 않는다 — 확장자 추출이나 존재 확인이 쿼리에
      오염되면 안 되므로, <img src> 에 실을 때만 versioned() 로 감싼다. */
-  var ASSET_VERSION = '20260922e';
+  var ASSET_VERSION = '20260922f';
   function slidePath(key, n, ext) { return 'assets/slides/' + key + '/' + pad(n) + '.' + ext; }
   function versioned(src) { return src + '?v=' + ASSET_VERSION; }
 
