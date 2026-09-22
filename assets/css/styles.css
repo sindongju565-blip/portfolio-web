@@ -84,7 +84,7 @@ hr.rule { height: 0; margin: 0; border: 0; border-top: 1px solid var(--c-divider
 a, button { transition: opacity .15s ease; }
 @media (hover: hover) {
   .nav-item:hover, .link-muted:hover,
-  .site-footer__links a:hover, .card__link:hover { opacity: .6; }
+  .site-footer__links a:hover { opacity: .6; }
 }
 
 /* ============================= shell =============================
@@ -437,73 +437,41 @@ a, button { transition: opacity .15s ease; }
 .edu__name { color: rgba(255, 255, 255, .88); }
 
 /* ============================= INDEX =============================
-   Figma 215:73897 "Table of contents" — 1030 x 579.375
-   Rebuilt as real markup; cards link to their project section.      */
-.index { padding: 6.5% 11% 10%; }
-.index__title {
-  font-family: var(--f-serif);
-  font-weight: 400;
-  font-size: 6.9cqw;
-  line-height: 1;
-  color: #eef1f6;
-  margin-bottom: .95em;
+   Figma 완성 화면 1장(assets/img/index.png) + 투명 클릭 영역.
+   좌표는 index.png 픽셀에서 직접 측정한 값을 % 로 환산했으므로
+   이미지가 어떤 폭으로 축소돼도 카드 위치를 그대로 따라간다.
+
+   측정(7680x4320 원본 → 960x540 다운스케일 기준):
+     카드 그리드  좌측 10.938%, 피치 20.938%, 카드 폭 15.313%
+     카드 세로    배지 상단 37.778% ~ 태그 하단 85.556%
+   아래 값은 여기에 상하좌우 여유를 조금 더한 것.                    */
+.index__frame {
+  position: relative;      /* % 좌표의 기준 = 이미지 박스와 정확히 일치 */
+  display: block;
 }
-.index__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 6.18cqw;
-}
-.card__link { display: block; }
-.card__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 4cqw;
-  min-width: 34px;
-  aspect-ratio: 41 / 18;
-  border: 1px solid rgba(255, 255, 255, .45);
-  border-radius: 999px;
-  font-family: var(--f-serif);
-  font-size: max(9px, 1cqw);
-  color: rgba(255, 255, 255, .85);
-  margin-bottom: 1.9em;
-}
-.card__thumb {
+.index__cover {
   display: block;
   width: 100%;
-  aspect-ratio: 133 / 82;   /* grey placeholder box — as drawn in Figma */
-  background: #8a8a8a;
-  margin-bottom: 1.6em;
+  height: auto;            /* 원본 비율 유지 */
 }
-.card__eyebrow,
-.card__desc,
-.card__kind,
-.card__tags { display: block; font-family: var(--f-kr); }
-.card__eyebrow {
-  font-size: max(8.5px, .86cqw);
-  line-height: 1.5;
-  color: rgba(255, 255, 255, .3);
-  margin-bottom: .6em;
+
+.index__hit {
+  position: absolute;
+  top: 37.2%;
+  height: 49.2%;
+  width: 16.0%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
-.card__desc {
-  font-size: max(11px, 1.11cqw);
-  line-height: 1.55;
-  color: #fff;
-  margin-bottom: 1.5em;
-}
-.card__kind {
-  font-weight: 700;
-  font-size: max(9.5px, 1cqw);
-  letter-spacing: .02em;
-  color: #fff;
-  margin-bottom: .8em;
-}
-.card__tags {
-  font-size: max(9.5px, 1cqw);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, .8);
-}
-.card__tags i { font-style: normal; color: var(--c-deck-sep); margin: 0 .35em; }
+.index__hit--01 { left: 10.59%; }
+.index__hit--02 { left: 31.53%; }
+.index__hit--03 { left: 52.47%; }
+.index__hit--04 { left: 73.40%; }
+
+/* 키보드 접근 시에만 위치를 보여준다 */
+.index__hit:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
 
 /* ====================== PROJECT 01 INTRO ======================
    Figma 215:73901 "content - 01" — the only section that exists
@@ -745,15 +713,6 @@ a, button { transition: opacity .15s ease; }
   .skill-list { font-size: 13px; }
   .edu li { grid-template-columns: minmax(0, 1fr); row-gap: 4px; line-height: 1.6; margin-bottom: 14px; font-size: 13px; }
 
-  /* ---- index ---- */
-  .index { aspect-ratio: auto; padding: 48px var(--mobile-pad) 56px; }
-  .index__title { font-size: 44px; margin-bottom: 32px; }
-  .index__grid { grid-template-columns: minmax(0, 1fr); row-gap: 40px; column-gap: 0; }
-  .card__badge { width: 41px; font-size: 11px; }
-  .card__eyebrow { font-size: 12px; }
-  .card__desc { font-size: 15px; }
-  .card__kind, .card__tags { font-size: 13px; }
-
   /* ---- project 01 intro : text block, then the mockups below ---- */
   .pintro { aspect-ratio: auto; min-height: 0; display: flex; flex-direction: column; }
   .pintro__text {
@@ -779,6 +738,7 @@ a, button { transition: opacity .15s ease; }
   /* ---- 이미지 영역 : wrapper 에만 좌우 여백.
          이미지는 width:100% / height:auto 그대로라 비율·크롭 영향 없음 ---- */
   .hero,
+  .index,
   .project__slides { padding-inline: var(--mobile-pad); }
 
   /* ---- footer ---- */
