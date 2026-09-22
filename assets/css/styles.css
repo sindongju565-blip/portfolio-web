@@ -368,9 +368,9 @@ a, button { transition: opacity .15s ease; }
    좌표는 index.png 픽셀에서 직접 측정한 값을 % 로 환산했으므로
    이미지가 어떤 폭으로 축소돼도 카드 위치를 그대로 따라간다.
 
-   측정(7680x4320 원본 → 960x540 다운스케일 기준):
-     카드 그리드  좌측 10.938%, 피치 20.938%, 카드 폭 15.313%
-     카드 세로    배지 상단 37.778% ~ 태그 하단 85.556%
+   측정(2026-09-22 교체본, 7680x4320 원본 → 960x540 다운스케일 기준):
+     카드 좌측  11.04 / 31.46 / 52.08 / 72.60%,  카드 폭 약 16.4%
+     카드 세로  배지 상단 37.78% ~ 태그 하단 82.78%
    아래 값은 여기에 상하좌우 여유를 조금 더한 것.                    */
 .index__frame {
   position: relative;      /* % 좌표의 기준 = 이미지 박스와 정확히 일치 */
@@ -384,18 +384,18 @@ a, button { transition: opacity .15s ease; }
 
 .index__hit {
   position: absolute;
-  top: 37.2%;
-  height: 49.2%;
-  width: 16.0%;
+  top: 37.0%;
+  height: 49.8%;
+  width: 17.0%;
   background: transparent;
   border: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.index__hit--01 { left: 10.59%; }
-.index__hit--02 { left: 31.53%; }
-.index__hit--03 { left: 52.47%; }
-.index__hit--04 { left: 73.40%; }
+.index__hit--01 { left: 10.80%; }
+.index__hit--02 { left: 31.20%; }
+.index__hit--03 { left: 51.80%; }
+.index__hit--04 { left: 72.30%; }
 
 /* 키보드 접근 시에만 위치를 보여준다 */
 .index__hit:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
