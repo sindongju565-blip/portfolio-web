@@ -329,21 +329,18 @@ a, button { transition: opacity .15s ease; }
 /* 파일을 아직 넣지 않았을 때 깨진 이미지 아이콘 대신 흰 화면 */
 .hero.is-missing .hero__cover { visibility: hidden; }
 
-/* ============================ PROFILE ============================
-   Figma 완성 화면 1장(assets/img/resume.png)을 그대로 표시.
-   이름/소개/연락처/Experience/Skill/Education 을 마크업으로 재현하지 않는다. */
-.profile {
-  display: block;
-  background: var(--c-bg-1);   /* 로딩 전에도 어두운 면이 비치지 않도록 */
-  margin: 0;
-  padding: 0;
-  font-size: 0;                /* inline 이미지 하단 여백 제거 */
+/* ============================ RESUME =============================
+   assets/img/resume.png 한 장. 비율에 개입하는 속성을 일절 두지 않는다.
+   height / min-height / max-height / aspect-ratio / object-fit / transform
+   어느 것도 선언하지 않으므로 높이는 항상 PNG 원본 비율로 결정된다.     */
+.resume {
+  width: 100%;
+  background: var(--c-bg-1);
 }
-.profile__cover {
+.resume img {
   display: block;
   width: 100%;
-  height: auto;                /* 원본 비율 유지 — 크롭·왜곡 없음 */
-  margin: 0;
+  height: auto;
 }
 
 /* ============================= INDEX =============================
@@ -626,12 +623,20 @@ a, button { transition: opacity .15s ease; }
     margin-bottom: 24px;
   }
 
-  /* ---- 이미지 영역 : wrapper 에만 좌우 여백.
-         이미지는 width:100% / height:auto 그대로라 비율·크롭 영향 없음 ---- */
+  /* ---- PNG 로 구성된 영역은 모바일에서 화면 좌우 끝까지 꽉 채운다.
+         (커버 · 이력서 · Index · 프로젝트 01~04 슬라이드)
+         래퍼에 좌우 패딩·마진·max-width 를 두지 않으므로 이미지 폭이
+         곧 뷰포트 폭이 된다. 이미지 자체는 width:100% / height:auto 라
+         비율은 그대로, 잘림도 없다. 네비게이션과 푸터의 20px 여백은
+         이 규칙과 무관하게 유지된다. ---- */
   .hero,
-  .profile,
+  .resume,
   .index,
-  .project__slides { padding-inline: var(--mobile-pad); }
+  .project__slides {
+    padding-inline: 0;
+    margin-inline: 0;
+    max-width: none;
+  }
 
   /* ---- footer ---- */
   .site-footer { gap: 31px; padding-top: 96px; }
