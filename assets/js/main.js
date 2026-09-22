@@ -63,7 +63,13 @@
   var ROOT_MARGIN = '150% 0px 250% 0px';     // ~2.5 screens of runway downward
 
   function pad(n) { return n < 10 ? '0' + n : String(n); }
+  /* 배포마다 값을 바꾸면 교체된 슬라이드가 브라우저 캐시를 우회해 즉시 반영된다.
+     (CSS/JS 의 ?v= 와 같은 역할)
+     경로 자체에는 붙이지 않는다 — 확장자 추출이나 존재 확인이 쿼리에
+     오염되면 안 되므로, <img src> 에 실을 때만 versioned() 로 감싼다. */
+  var ASSET_VERSION = '20260922e';
   function slidePath(key, n, ext) { return 'assets/slides/' + key + '/' + pad(n) + '.' + ext; }
+  function versioned(src) { return src + '?v=' + ASSET_VERSION; }
 
   function exists(url) {
     return fetch(url, { method: 'HEAD' })
@@ -215,7 +221,7 @@
          only pull images in EARLIER than the native threshold. */
       img.setAttribute('loading', 'lazy');
     }
-    img.src = src;
+    img.src = versioned(src);
 
     fig.appendChild(img);
     return fig;
