@@ -301,6 +301,26 @@ a, button { transition: opacity .15s ease; }
   border-bottom: 1px solid rgba(255, 255, 255, .14);
 }
 
+/* ============================ FULL BLEED ==========================
+   PNG 로 구성된 모든 콘텐츠 영역(커버 · 이력서 · Index · 프로젝트
+   01~04 슬라이드)에 붙이는 공통 클래스. 좌우 여백을 만들 수 있는
+   속성을 한곳에서 0 으로 고정하므로, 섹션 클래스 이름이 바뀌어도
+   여백이 되살아나지 않는다. 모든 폭에 적용된다.
+   이미지 자체는 width:100% / height:auto 라 비율은 그대로이고
+   잘리지 않는다. 네비게이션·푸터 여백은 이 규칙과 무관하다.      */
+.full-bleed {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+}
+.full-bleed > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* ============================== HERO ==============================
    Figma에서 내보낸 완성 화면 1장(assets/img/main-cover.png)을 그대로 표시.
    개별 요소를 마크업으로 재현하지 않으므로 원본과 어긋날 여지가 없습니다.  */
@@ -621,21 +641,6 @@ a, button { transition: opacity .15s ease; }
     width: 100%;
     aspect-ratio: var(--slide-ar);
     margin-bottom: 24px;
-  }
-
-  /* ---- PNG 로 구성된 영역은 모바일에서 화면 좌우 끝까지 꽉 채운다.
-         (커버 · 이력서 · Index · 프로젝트 01~04 슬라이드)
-         래퍼에 좌우 패딩·마진·max-width 를 두지 않으므로 이미지 폭이
-         곧 뷰포트 폭이 된다. 이미지 자체는 width:100% / height:auto 라
-         비율은 그대로, 잘림도 없다. 네비게이션과 푸터의 20px 여백은
-         이 규칙과 무관하게 유지된다. ---- */
-  .hero,
-  .resume,
-  .index,
-  .project__slides {
-    padding-inline: 0;
-    margin-inline: 0;
-    max-width: none;
   }
 
   /* ---- footer ---- */
