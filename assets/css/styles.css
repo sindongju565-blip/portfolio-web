@@ -330,111 +330,21 @@ a, button { transition: opacity .15s ease; }
 .hero.is-missing .hero__cover { visibility: hidden; }
 
 /* ============================ PROFILE ============================
-   Figma 215:73894 "Intro section / 이력서" — 1030 x 578            */
-.profile__grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: 45% 55%;
-  grid-template-areas:
-    "identity experience"
-    "skill    education";
-  align-content: start;
-  column-gap: 2%;
-  row-gap: 3%;
-  padding: 11.5% 6.9% 8%;
+   Figma 완성 화면 1장(assets/img/resume.png)을 그대로 표시.
+   이름/소개/연락처/Experience/Skill/Education 을 마크업으로 재현하지 않는다. */
+.profile {
+  display: block;
+  background: var(--c-bg-1);   /* 로딩 전에도 어두운 면이 비치지 않도록 */
+  margin: 0;
+  padding: 0;
+  font-size: 0;                /* inline 이미지 하단 여백 제거 */
 }
-.profile__identity  { grid-area: identity; }
-.profile__experience{ grid-area: experience; }
-.profile__skill     { grid-area: skill; }
-.profile__education { grid-area: education; }
-
-.profile__name { display: flex; align-items: baseline; gap: .9em; margin-bottom: 1.9em; }
-.profile__name-ko {
-  font-family: var(--f-kr);
-  font-weight: 600;
-  font-size: max(17px, 1.9cqw);
-  letter-spacing: .28em;
+.profile__cover {
+  display: block;
+  width: 100%;
+  height: auto;                /* 원본 비율 유지 — 크롭·왜곡 없음 */
+  margin: 0;
 }
-.profile__name-en {
-  font-family: var(--f-kr);
-  font-weight: 400;
-  font-size: max(10px, 1cqw);
-  letter-spacing: .04em;
-  color: rgba(255, 255, 255, .62);
-}
-.profile__intro {
-  font-family: var(--f-kr);
-  font-weight: 400;
-  font-size: max(10px, 1cqw);
-  line-height: 1.85;
-  color: rgba(255, 255, 255, .88);
-  margin-bottom: 1.9em;
-}
-.profile__meta {
-  font-family: var(--f-kr);
-  font-size: max(10px, 1cqw);
-  line-height: 2.1;
-  color: rgba(255, 255, 255, .7);
-  display: flex;
-  flex-wrap: wrap;
-  gap: .9em;
-}
-.profile__meta .sep { color: var(--c-deck-sep); }
-
-.career { display: grid; grid-template-columns: 30% 70%; margin-top: 1.9em; }
-.profile__experience .deck-label--rule + .career { margin-top: 1.6em; }
-.career__org {
-  font-family: var(--f-kr);
-  font-weight: 600;
-  font-size: max(10px, 1.02cqw);
-  margin-bottom: .7em;
-}
-.career__period {
-  font-family: var(--f-kr);
-  font-size: max(9.5px, .95cqw);
-  color: rgba(255, 255, 255, .5);
-}
-.career__role {
-  font-family: var(--f-kr);
-  font-weight: 600;
-  font-size: max(10px, 1.02cqw);
-  margin-bottom: .9em;
-}
-.career__list {
-  font-family: var(--f-kr);
-  font-size: max(9.5px, .95cqw);
-  line-height: 1.85;
-  color: rgba(255, 255, 255, .82);
-}
-.career__list li { padding-left: 1em; text-indent: -1em; }
-.career__list li::before { content: "· "; color: rgba(255, 255, 255, .55); }
-
-.skill-list {
-  display: flex;
-  flex-wrap: wrap;
-  font-family: var(--f-kr);
-  font-size: max(9.5px, .98cqw);
-  line-height: 2;
-  color: rgba(255, 255, 255, .88);
-  margin-top: 1.5em;
-}
-.skill-list span { white-space: nowrap; }
-.skill-list span:not(:last-child)::after {
-  content: "|";
-  color: var(--c-deck-sep);
-  margin: 0 .7em;
-}
-
-.edu { margin-top: 1.6em; }
-.edu li {
-  display: grid;
-  grid-template-columns: 30% 70%;
-  font-family: var(--f-kr);
-  font-size: max(9.5px, .95cqw);
-  line-height: 2.3;
-}
-.edu__period { color: rgba(255, 255, 255, .5); }
-.edu__name { color: rgba(255, 255, 255, .88); }
 
 /* ============================= INDEX =============================
    Figma 완성 화면 1장(assets/img/index.png) + 투명 클릭 영역.
@@ -694,25 +604,6 @@ a, button { transition: opacity .15s ease; }
 }
 
 @media (max-width: 767px) {
-  /* ---- profile ---- */
-  .profile { aspect-ratio: auto; }
-  .profile__grid {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "identity" "experience" "skill" "education";
-    row-gap: 40px;
-    padding: 48px var(--mobile-pad) 56px;
-  }
-  .profile__name-ko { font-size: 22px; }
-  .profile__name-en,
-  .profile__intro,
-  .profile__meta    { font-size: 13px; }
-  .deck-label       { font-size: 11px; }
-  .career { grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
-  .career__org, .career__role { font-size: 14px; }
-  .career__period, .career__list { font-size: 13px; }
-  .skill-list { font-size: 13px; }
-  .edu li { grid-template-columns: minmax(0, 1fr); row-gap: 4px; line-height: 1.6; margin-bottom: 14px; font-size: 13px; }
-
   /* ---- project 01 intro : text block, then the mockups below ---- */
   .pintro { aspect-ratio: auto; min-height: 0; display: flex; flex-direction: column; }
   .pintro__text {
@@ -738,6 +629,7 @@ a, button { transition: opacity .15s ease; }
   /* ---- 이미지 영역 : wrapper 에만 좌우 여백.
          이미지는 width:100% / height:auto 그대로라 비율·크롭 영향 없음 ---- */
   .hero,
+  .profile,
   .index,
   .project__slides { padding-inline: var(--mobile-pad); }
 
