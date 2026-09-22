@@ -46,7 +46,7 @@
   --content-w:  1030px;  /* Desktop Main  215:73890 */
   --shell-w:    1280px;  /* Desktop frame 215:73888 */
   --tablet-pad: 32px;    /* Tablet nav px 32 */
-  --mobile-pad: 16px;    /* Mobile nav px 16 */
+  --mobile-pad: 20px;    /* 모바일 좌우 안전 여백 */
   --slide-ar:   1030 / 579.375;  /* every deck slide is exactly 16:9 */
 }
 
@@ -176,14 +176,12 @@ a, button { transition: opacity .15s ease; }
    The group only clears both sides while 680 <= viewport - 384, i.e. from
    1064px up; below 1120 it returns to normal flow (and wraps) instead of
    overlapping. */
-@media (min-width: 1120px) {
-  .nav-top__projects {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    flex-wrap: nowrap;
-  }
+.nav-top__projects {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  flex-wrap: nowrap;      /* 절대 줄바꿈되지 않음 */
 }
 
 /* Scroll progress, sitting on the nav's bottom edge so it is always
@@ -225,11 +223,12 @@ a, button { transition: opacity .15s ease; }
    Figma 215:73843 (Default 375x48) / 215:73850 (Open 375x416)    */
 .nav-mobile { display: none; }
 .nav-mobile__bar {
-  padding-inline: var(--mobile-pad);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 0;
+  /* 한 줄 단축으로 지정 — padding-inline 을 따로 두면 뒤따르는
+     padding 단축 속성이 좌우 값을 0 으로 덮어쓴다. */
+  padding: 16px var(--mobile-pad);
 }
 
 .nav-mobile__toggle {
@@ -714,12 +713,19 @@ a, button { transition: opacity .15s ease; }
    sections reflow to a single column (Figma has no mobile layout
    for them — it crops the 1030px desktop artwork instead).
    ================================================================= */
-@media (max-width: 767px) {
+/* ---- 네비게이션 전환점 ----
+   프로젝트 4개(680px) + 로고 블록(112px) + 액션 블록(192px) = 최소 1048px.
+   중앙 정렬 여유까지 확보하려면 1144px 이상이 필요하므로 1200px 에서 전환한다.
+   1199px 이하에서는 데스크톱 네비를 아예 숨기므로 "04가 둘째 줄로 떨어지는"
+   상태 자체가 존재할 수 없다. */
+@media (max-width: 1199px) {
   .nav-top { display: none; }
   .nav-mobile { display: block; position: sticky; top: 0; z-index: 30; background: var(--c-bg-1); border-bottom: 1px solid var(--c-divider); }
   .nav-mobile__panel { display: block; }
   body.is-menu-open { overflow: hidden; }
+}
 
+@media (max-width: 767px) {
   /* ---- profile ---- */
   .profile { aspect-ratio: auto; }
   .profile__grid {
@@ -769,6 +775,11 @@ a, button { transition: opacity .15s ease; }
     aspect-ratio: var(--slide-ar);
     margin-bottom: 24px;
   }
+
+  /* ---- 이미지 영역 : wrapper 에만 좌우 여백.
+         이미지는 width:100% / height:auto 그대로라 비율·크롭 영향 없음 ---- */
+  .hero,
+  .project__slides { padding-inline: var(--mobile-pad); }
 
   /* ---- footer ---- */
   .site-footer { gap: 31px; padding-top: 96px; }
