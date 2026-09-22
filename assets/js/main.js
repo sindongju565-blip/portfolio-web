@@ -315,6 +315,29 @@
   }
 
   /* ---------------------------------------------------------
+     Hero cover
+     The first screen is one exported PNG. It carries fetchpriority=high
+     and no loading attribute, so it is fetched with the document — never
+     lazily. The 16:9 box reserved in CSS is released once the real
+     dimensions are known, so the PNG's own ratio decides the height.
+     --------------------------------------------------------- */
+  function wireHeroCover() {
+    var hero = document.querySelector('.hero');
+    var img = hero && hero.querySelector('.hero__cover');
+    if (!img) return;
+
+    function settled() { hero.classList.add('is-loaded'); }
+    function failed() { hero.classList.add('is-loaded', 'is-missing'); }
+
+    if (img.complete) {
+      (img.naturalWidth ? settled : failed)();
+      return;
+    }
+    img.addEventListener('load', settled, { once: true });
+    img.addEventListener('error', failed, { once: true });
+  }
+
+  /* ---------------------------------------------------------
      Instant scroll
      Toggling documentElement.style.scrollBehavior is NOT reliable: the style
      change is not flushed before scrollTo() reads it, so the global
@@ -570,6 +593,7 @@
   }
 
   function init() {
+    wireHeroCover();
     wireStartAtTop();
     wireScrollPreload();
     buildSlides();

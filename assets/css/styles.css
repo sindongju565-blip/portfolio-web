@@ -33,7 +33,6 @@
   --f-para:  "Figtree", system-ui, sans-serif;
   --f-kr:    "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
   --f-serif: "Playfair Display", "Times New Roman", serif;
-  --f-script:"Pinyon Script", cursive;
 
   /* ---- Type scale (Figma text styles) ---- */
   --t-links-size:    15px;  --t-links-ls:    -.3px;    /* Links      15 / 1.2 / -2% */
@@ -304,77 +303,32 @@ a, button { transition: opacity .15s ease; }
 }
 
 /* ============================== HERO ==============================
-   Figma 215:73891 — 1030 x 579 (flattened image in Figma; rebuilt
-   here as real markup, per the "no whole-image sections" rule).     */
+   Figma에서 내보낸 완성 화면 1장(assets/img/main-cover.png)을 그대로 표시.
+   개별 요소를 마크업으로 재현하지 않으므로 원본과 어긋날 여지가 없습니다.  */
 .hero {
+  display: block;
+  /* 흰색: 로딩 전 예약 박스가 잠깐 보여도 검정이 비치지 않게 */
+  background: var(--c-bg-1);
+  /* 로드 전 자리만 잡아두는 값(데크 기본 16:9). 로드되면 해제되어
+     PNG 고유 비율이 그대로 높이를 결정합니다. */
   aspect-ratio: var(--slide-ar);
+  /* 좌우 여백·상하 간격 없이 콘텐츠 영역 전체 폭 */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 0;            /* inline 이미지 아래 생기는 여백 제거 */
+}
+.hero.is-loaded { aspect-ratio: auto; }
+
+.hero__cover {
   display: block;
+  width: 100%;
+  height: auto;            /* 원본 비율 유지 */
+  object-fit: contain;     /* 안전장치: 어떤 경우에도 잘리지 않음 */
+  margin: 0;
 }
-.hero__top {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 9.3%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 3.7%;
-  border-bottom: 1px solid rgba(255, 255, 255, .12);
-}
-.hero__badge {
-  display: inline-flex;
-  align-items: stretch;
-  font-family: var(--f-serif);
-  font-size: max(8px, .92cqw);
-  line-height: 1;
-  border: 1px solid rgba(255, 255, 255, .38);
-  border-radius: 999px;
-  overflow: hidden;
-  color: rgba(255, 255, 255, .82);
-}
-.hero__badge-a, .hero__badge-b { padding: .62em 1.1em; }
-.hero__badge-b {
-  border-left: 1px solid rgba(255, 255, 255, .38);
-  background: rgba(255, 255, 255, .07);
-  font-style: italic;
-}
-.hero__tags {
-  display: flex;
-  gap: max(14px, 2.2cqw);
-  font-family: var(--f-serif);
-  font-size: max(8px, .92cqw);
-  letter-spacing: .06em;
-  color: rgba(255, 255, 255, .78);
-}
-.hero__body { position: absolute; inset: 0; }
-.hero__title { font-weight: 400; }
-.hero__line {
-  position: absolute;
-  display: block;
-  font-family: var(--f-serif);
-  font-weight: 400;
-  line-height: 1;
-  color: #eef1f6;
-  text-shadow: 0 .02em .06em rgba(0, 0, 0, .5);
-}
-.hero__line--1 { left: 5%;  top: 12%;   font-size: 6.6cqw; }
-.hero__line--2 { left: 5%;  top: 22.5%; font-size: 6.6cqw; }
-.hero__line--3 { right: 3.5%; bottom: 6%; font-size: 6cqw; }
-.hero__script {
-  position: absolute;
-  left: 9%;
-  top: 27%;
-  font-family: var(--f-script);
-  font-size: 17cqw;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: .012em rgba(255, 255, 255, .5);
-  text-shadow:
-     .018em .022em .03em rgba(0, 0, 0, .55),
-    -.006em -.006em .01em rgba(255, 255, 255, .16);
-  opacity: .85;
-  pointer-events: none;
-  white-space: nowrap;
-}
+/* 파일을 아직 넣지 않았을 때 깨진 이미지 아이콘 대신 흰 화면 */
+.hero.is-missing .hero__cover { visibility: hidden; }
 
 /* ============================ PROFILE ============================
    Figma 215:73894 "Intro section / 이력서" — 1030 x 578            */
@@ -765,16 +719,6 @@ a, button { transition: opacity .15s ease; }
   .nav-mobile { display: block; position: sticky; top: 0; z-index: 30; background: var(--c-bg-1); border-bottom: 1px solid var(--c-divider); }
   .nav-mobile__panel { display: block; }
   body.is-menu-open { overflow: hidden; }
-
-  /* ---- hero : Figma mobile frame is 375 x 262 ---- */
-  .hero { aspect-ratio: 375 / 262; }
-  .hero__top { height: 14%; padding: 0 var(--mobile-pad); }
-  .hero__tags { display: none; }          /* 375px cannot hold four tags */
-  .hero__badge { font-size: 9px; }
-  .hero__line--1 { font-size: 13cqw; top: 18%; left: 6%; }
-  .hero__line--2 { font-size: 13cqw; top: 33%; left: 6%; }
-  .hero__line--3 { font-size: 9.5cqw; bottom: 8%; right: 5%; }
-  .hero__script  { font-size: 30cqw; top: 33%; left: 4%; }
 
   /* ---- profile ---- */
   .profile { aspect-ratio: auto; }
