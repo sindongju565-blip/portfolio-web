@@ -47,7 +47,7 @@
      request per slide instead of a wasted 404 on png. Resolution happens
      per slide, not per folder, so a folder that is partly re-exported in
      another format still renders every slide. */
-  var EXT_PRIORITY = ['webp', 'jpg', 'jpeg', 'png'];
+  var EXT_PRIORITY = ['jpg', 'jpeg', 'webp', 'png'];
   var MAX_SLIDES = 99;
 
   /* ---- loading policy -------------------------------------------------
@@ -67,7 +67,7 @@
      (CSS/JS 의 ?v= 와 같은 역할)
      경로 자체에는 붙이지 않는다 — 확장자 추출이나 존재 확인이 쿼리에
      오염되면 안 되므로, <img src> 에 실을 때만 versioned() 로 감싼다. */
-  var ASSET_VERSION = '20260930c';
+  var ASSET_VERSION = '20260930d';
   function slidePath(key, n, ext) { return 'assets/slides/' + key + '/' + pad(n) + '.' + ext; }
   function versioned(src) { return src + '?v=' + ASSET_VERSION; }
 
