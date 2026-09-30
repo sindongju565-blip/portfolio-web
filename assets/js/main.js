@@ -47,7 +47,7 @@
      request per slide instead of a wasted 404 on png. Resolution happens
      per slide, not per folder, so a folder that is partly re-exported in
      another format still renders every slide. */
-  var EXT_PRIORITY = ['jpg', 'jpeg', 'png', 'webp'];
+  var EXT_PRIORITY = ['webp', 'jpg', 'jpeg', 'png'];
   var MAX_SLIDES = 99;
 
   /* ---- loading policy -------------------------------------------------
@@ -58,7 +58,7 @@
           no lazy attribute anywhere,
        3. everything else is pulled in well before it reaches the viewport
           by an IntersectionObserver with a wide margin plus a lookahead.  */
-  var EAGER_PER_PROJECT = 2;                 // fetched immediately, never lazy
+  var EAGER_PER_PROJECT = 1;                 // 첫 장만 즉시 로딩, 나머지는 loading="lazy"
   var LOOKAHEAD = 3;                         // extra slides pulled with each hit
   var ROOT_MARGIN = '150% 0px 250% 0px';     // ~2.5 screens of runway downward
 
@@ -67,7 +67,7 @@
      (CSS/JS 의 ?v= 와 같은 역할)
      경로 자체에는 붙이지 않는다 — 확장자 추출이나 존재 확인이 쿼리에
      오염되면 안 되므로, <img src> 에 실을 때만 versioned() 로 감싼다. */
-  var ASSET_VERSION = '20260930b';
+  var ASSET_VERSION = '20260930c';
   function slidePath(key, n, ext) { return 'assets/slides/' + key + '/' + pad(n) + '.' + ext; }
   function versioned(src) { return src + '?v=' + ASSET_VERSION; }
 
@@ -197,8 +197,13 @@
 
     var img = document.createElement('img');
     img.alt = alt;
-    /* async decode keeps a 7680px bitmap from blocking the scroll thread */
+    /* async decode keeps a large bitmap from blocking the scroll thread */
     img.decoding = 'async';
+    /* 로딩 전에도 브라우저가 비율을 알 수 있게 치수를 예약한다.
+       CSS 의 width:100% / height:auto 가 실제 크기를 정하므로 표시에는
+       영향이 없고, 레이아웃이 밀리는 것만 막는다. (모든 슬라이드 16:9) */
+    img.setAttribute('width', '1920');
+    img.setAttribute('height', '1080');
     /* No opacity transition on purpose: a fade would re-introduce exactly the
        flicker this is meant to remove. White box -> image, nothing else. */
     img.addEventListener('load', function () {
