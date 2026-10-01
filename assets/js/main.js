@@ -37,7 +37,7 @@
      All four run on 'auto': 02/03/04 resolve to the 4x PNG exports,
      01 still has only a JPG and falls back to it. */
   var PROJECTS = {
-    '01': { label: '학원 ERP 서비스 고도화',      expected: 13,   source: 'auto' },
+    '01': { label: '학원 ERP 서비스 고도화',      expected: 21,   source: 'auto' },
     '02': { label: '시니어 AI 케어 서비스 기획', expected: 18,   source: 'auto' },
     '03': { label: '숏폼 OTT 서비스 런칭',        expected: 20,   source: 'auto' },
     '04': { label: '케이크 주문 서비스 구축',     expected: 33,   source: 'auto' }
@@ -47,7 +47,7 @@
      request per slide instead of a wasted 404 on png. Resolution happens
      per slide, not per folder, so a folder that is partly re-exported in
      another format still renders every slide. */
-  var EXT_PRIORITY = ['jpg', 'jpeg', 'webp', 'png'];
+  var EXT_PRIORITY = ['webp', 'jpg', 'jpeg', 'png'];
   var MAX_SLIDES = 99;
 
   /* ---- loading policy -------------------------------------------------
@@ -67,7 +67,7 @@
      (CSS/JS 의 ?v= 와 같은 역할)
      경로 자체에는 붙이지 않는다 — 확장자 추출이나 존재 확인이 쿼리에
      오염되면 안 되므로, <img src> 에 실을 때만 versioned() 로 감싼다. */
-  var ASSET_VERSION = '20260930e';
+  var ASSET_VERSION = '20261001a';
   function slidePath(key, n, ext) { return 'assets/slides/' + key + '/' + pad(n) + '.' + ext; }
   function versioned(src) { return src + '?v=' + ASSET_VERSION; }
 
