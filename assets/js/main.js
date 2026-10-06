@@ -11,11 +11,14 @@
      CONFIG — the two values still waiting on real content.
      --------------------------------------------------------- */
   var CONFIG = {
-    // TODO: 실제 주소 전달받으면 이 값만 교체하면 됩니다.
-    contactEmail: 'temporary@example.com',
-    // TODO: 이력서 PDF를 이 경로에 넣어주세요.
-    resumeFile: 'assets/docs/resume.pdf',
-    resumeDownloadName: 'SinDongju_Resume.pdf'
+    /* 이력서 링크 — 이 한 줄만 바꾸면 전부 반영됩니다.
+       http(s) 로 시작하면 새 탭에서 열리고,
+       프로젝트 안의 파일 경로를 넣으면 다운로드로 동작합니다. */
+    resumeUrl: 'assets/docs/resume.pdf',
+    resumeDownloadName: 'SinDongju_Resume.pdf',
+    /* 상단 네비 Contact Us 는 전화번호 팝업(마크업)으로 대체되었고,
+       모바일 패널·푸터의 Contact 링크만 이 주소를 사용합니다. */
+    contactEmail: 'temporary@example.com'
   };
 
   /* ---------------------------------------------------------
@@ -67,7 +70,7 @@
      (CSS/JS 의 ?v= 와 같은 역할)
      경로 자체에는 붙이지 않는다 — 확장자 추출이나 존재 확인이 쿼리에
      오염되면 안 되므로, <img src> 에 실을 때만 versioned() 로 감싼다. */
-  var ASSET_VERSION = '20261006e';
+  var ASSET_VERSION = '20261006f';
   function slidePath(key, n, ext) { return 'assets/slides/' + key + '/' + pad(n) + '.' + ext; }
   function versioned(src) { return src + '?v=' + ASSET_VERSION; }
 
@@ -279,10 +282,23 @@
      Download / Contact Us
      --------------------------------------------------------- */
   function wireLinks() {
+    var external = /^https?:\/\//i.test(CONFIG.resumeUrl);
     document.querySelectorAll('[data-resume]').forEach(function (a) {
-      a.href = CONFIG.resumeFile;
-      a.setAttribute('download', CONFIG.resumeDownloadName);
-      a.setAttribute('type', 'application/pdf');
+      a.href = CONFIG.resumeUrl;
+      if (external) {
+        /* 외부 링크: 새 탭에서 열고 download 속성은 쓰지 않는다
+           (교차 출처에서는 브라우저가 무시하고 탐색해 버린다) */
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener');
+        a.removeAttribute('download');
+        a.removeAttribute('type');
+      } else {
+        /* 같은 출처의 파일: 새 탭으로 열되 다운로드로 저장되게 한다 */
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener');
+        a.setAttribute('download', CONFIG.resumeDownloadName);
+        a.setAttribute('type', 'application/pdf');
+      }
     });
 
     document.querySelectorAll('[data-mailto]').forEach(function (a) {

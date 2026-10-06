@@ -184,6 +184,71 @@ a, button { transition: opacity .15s ease; }
   flex-wrap: nowrap;      /* 절대 줄바꿈되지 않음 */
 }
 
+/* ---- Contact Us 호버 팝업 ----
+   트리거와 팝업을 하나의 .contact 안에 두고 :hover 를 그 래퍼에 건다.
+   덕분에 트리거 → 팝업으로 마우스를 옮겨도 호버가 끊기지 않는다.
+   둘 사이 6px 간격은 팝업의 ::before 가 투명하게 메워 커서가 빠지지 않게 한다.
+   키보드 사용자를 위해 :focus-within 에서도 동일하게 열린다.            */
+.contact {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.contact__trigger {
+  /* .link-muted 와 같은 타이포 — 네비 정렬·크기에 영향 없음 */
+  line-height: inherit;
+  cursor: default;
+}
+
+.contact__pop {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 6px;            /* 너무 벌어지지 않게 */
+  z-index: 40;                /* 네비(30)·프로그레스바 위 */
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 13px;
+  white-space: nowrap;
+  background: var(--c-bg-1);
+  border: 1px solid rgba(0, 0, 0, .07);
+  border-radius: 3px;         /* 아주 조금만 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .07);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .12s ease;
+}
+/* 트리거와 팝업 사이의 투명 다리 — 커서가 간격에서 빠지지 않게 */
+.contact__pop::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 0;
+  right: 0;
+  height: 7px;
+}
+.contact:hover .contact__pop,
+.contact:focus-within .contact__pop {
+  opacity: 1;
+  visibility: visible;
+}
+
+.contact__label {
+  font-size: var(--t-display-size);
+  letter-spacing: var(--t-display-ls);
+  color: var(--c-text-2);
+}
+.contact__value {
+  font-size: var(--t-caption2-size);
+  letter-spacing: var(--t-caption2-ls);
+  color: var(--c-text-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact__pop { transition: none; }
+}
+
 /* Scroll progress, sitting on the nav's bottom edge so it is always
    visible. Deliberately quiet: 2px tall, no animation. */
 .progress {
