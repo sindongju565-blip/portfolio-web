@@ -206,9 +206,13 @@ a, button { transition: opacity .15s ease; }
   right: 0;
   margin-top: 6px;            /* 너무 벌어지지 않게 */
   z-index: 40;                /* 네비(30)·프로그레스바 위 */
-  display: flex;
+  /* 라벨 / 값 2열 x 2행. 행 간격은 좁게 유지한다. */
+  display: grid;
+  grid-template-columns: auto auto;
   align-items: baseline;
-  gap: 10px;
+  justify-items: start;
+  column-gap: 14px;
+  row-gap: 3px;
   padding: 9px 13px;
   white-space: nowrap;
   background: var(--c-bg-1);
@@ -234,16 +238,16 @@ a, button { transition: opacity .15s ease; }
   visibility: visible;
 }
 
-.contact__label {
-  font-size: var(--t-display-size);
-  letter-spacing: var(--t-display-ls);
-  color: var(--c-text-2);
-}
+/* 라벨과 값은 크기·굵기를 똑같이 쓴다. 구분은 색으로만 둔다. */
+.contact__label,
 .contact__value {
   font-size: var(--t-caption2-size);
   letter-spacing: var(--t-caption2-ls);
-  color: var(--c-text-1);
+  font-weight: 500;
+  line-height: 1.35;
 }
+.contact__label { color: var(--c-text-2); }
+.contact__value { color: var(--c-text-1); }
 
 @media (prefers-reduced-motion: reduce) {
   .contact__pop { transition: none; }
