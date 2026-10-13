@@ -14,7 +14,7 @@
     /* 이력서 링크 — 이 한 줄만 바꾸면 전부 반영됩니다.
        http(s) 로 시작하면 새 탭에서 열리고,
        프로젝트 안의 파일 경로를 넣으면 다운로드로 동작합니다. */
-    resumeUrl: 'assets/docs/resume.pdf',
+    resumeUrl: 'https://acrobat.adobe.com/id/urn:aaid:sc:AP:d1ca2b75-ea3e-4667-a9a0-31d0b49f4c73?viewer%21megaVerb=group-discover',
     resumeDownloadName: 'SinDongju_Resume.pdf',
     /* 상단 네비 Contact Us 는 전화번호 팝업(마크업)으로 대체되었고,
        모바일 패널·푸터의 Contact 링크만 이 주소를 사용합니다. */
@@ -70,7 +70,7 @@
      (CSS/JS 의 ?v= 와 같은 역할)
      경로 자체에는 붙이지 않는다 — 확장자 추출이나 존재 확인이 쿼리에
      오염되면 안 되므로, <img src> 에 실을 때만 versioned() 로 감싼다. */
-  var ASSET_VERSION = '20261007f';
+  var ASSET_VERSION = '20261013a';
   function slidePath(key, n, ext) { return 'assets/slides/' + key + '/' + pad(n) + '.' + ext; }
   function versioned(src) { return src + '?v=' + ASSET_VERSION; }
 

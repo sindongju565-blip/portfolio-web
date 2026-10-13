@@ -120,6 +120,17 @@ a, button { transition: opacity .15s ease; }
   color: var(--c-text-2);
 }
 
+/* 이력서 링크만 밑줄을 둬서 '누를 수 있는 것'임을 드러낸다.
+   text-decoration 이라 밑줄 길이는 글자 폭을 그대로 따라간다
+   (별도 박스가 아니므로 네비 정렬·간격에는 영향이 없다). */
+a.link-muted[data-resume] {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: currentColor;
+  cursor: pointer;
+}
+
 /* ====================== NAVIGATION : TOP ======================
    Sticky top bar, >= 768px. Order: logo / 4 projects / Download /
    Contact Us, with the two actions pushed to the right edge.        */
