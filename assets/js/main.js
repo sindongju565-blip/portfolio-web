@@ -13,9 +13,9 @@
   var CONFIG = {
     /* 이력서 링크 — 이 한 줄만 바꾸면 전부 반영됩니다.
        http(s) 로 시작하면 새 탭에서 열리고,
-       프로젝트 안의 파일 경로를 넣으면 다운로드로 동작합니다. */
-    resumeUrl: 'https://acrobat.adobe.com/id/urn:aaid:sc:AP:d1ca2b75-ea3e-4667-a9a0-31d0b49f4c73?viewer%21megaVerb=group-discover',
-    resumeDownloadName: 'SinDongju_Resume.pdf',
+       프로젝트 안의 파일 경로를 넣으면 곧바로 다운로드됩니다. */
+    resumeUrl: 'assets/docs/ShinDongju_Resume.pdf',
+    resumeDownloadName: 'ShinDongju_Resume.pdf',
     /* 상단 네비 Contact Us 는 전화번호 팝업(마크업)으로 대체되었고,
        모바일 패널·푸터의 Contact 링크만 이 주소를 사용합니다. */
     contactEmail: 'temporary@example.com'
@@ -70,7 +70,7 @@
      (CSS/JS 의 ?v= 와 같은 역할)
      경로 자체에는 붙이지 않는다 — 확장자 추출이나 존재 확인이 쿼리에
      오염되면 안 되므로, <img src> 에 실을 때만 versioned() 로 감싼다. */
-  var ASSET_VERSION = '20261013a';
+  var ASSET_VERSION = '20261013b';
   function slidePath(key, n, ext) { return 'assets/slides/' + key + '/' + pad(n) + '.' + ext; }
   function versioned(src) { return src + '?v=' + ASSET_VERSION; }
 
@@ -293,9 +293,11 @@
         a.removeAttribute('download');
         a.removeAttribute('type');
       } else {
-        /* 같은 출처의 파일: 새 탭으로 열되 다운로드로 저장되게 한다 */
-        a.setAttribute('target', '_blank');
-        a.setAttribute('rel', 'noopener');
+        /* 같은 출처의 파일: download 속성만으로 곧바로 저장된다.
+           target=_blank 를 함께 두면 브라우저가 빈 탭을 잠깐 띄우므로
+           (또는 PDF 뷰어로 새 탭을 열어버리므로) 여기서는 반드시 지운다. */
+        a.removeAttribute('target');
+        a.removeAttribute('rel');
         a.setAttribute('download', CONFIG.resumeDownloadName);
         a.setAttribute('type', 'application/pdf');
       }
