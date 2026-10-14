@@ -203,34 +203,48 @@ a.link-muted[data-resume] {
 
 .nav-tip {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 12px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 35;                /* 네비(30) 위, Contact 팝업(40) 아래 */
-  padding: 4px 9px;
-  border-radius: 6px;
-  background: #222222;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: -.1px;
-  line-height: 1.35;
+  padding: 12px 22px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111111;
+  font-size: 18px;
+  font-weight: 600;           /* SemiBold */
+  letter-spacing: -.2px;
+  line-height: 1.2;
   white-space: nowrap;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, .18);
+  /* 흰 네비 위의 흰 말풍선이라 그림자만으로는 경계가 흐리다.
+     퍼지는 그림자 + 1px 링을 같이 줘서 또렷하게 떠 보이게 한다. */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .14),
+              0 1px 3px rgba(0, 0, 0, .08),
+              0 0 0 1px rgba(0, 0, 0, .05);
+  /* 좁은 화면에서도 좌우로 잘리지 않게 */
+  max-width: calc(100vw - 24px);
   pointer-events: none;
   opacity: 0;
   transition: opacity .45s ease;
   animation: nav-tip-bob 1.5s ease-in-out infinite;
 }
-/* 메뉴를 가리키는 꼬리 */
+/* 메뉴를 가리키는 꼬리.
+   흰 꼬리에 테두리를 남기려면 border 삼각형으로는 안 되므로
+   45도 돌린 정사각형을 쓴다. 위를 향한 두 변에만 링이 남고,
+   말풍선 안쪽으로 겹치는 절반은 흰색이라 보이지 않는다. */
 .nav-tip::after {
   content: "";
   position: absolute;
-  bottom: 100%;
+  top: -5px;
   left: 50%;
+  width: 10px;
+  height: 10px;
   margin-left: -5px;
-  border: 5px solid transparent;
-  border-bottom-color: #222222;
+  background: #ffffff;
+  border-radius: 1px;
+  transform: rotate(45deg);
+  /* 회전하면 (-1,-1) 오프셋이 정확히 위쪽을 향한다 */
+  box-shadow: -1px -1px 0 rgba(0, 0, 0, .05);
 }
 .nav-tip.is-on { opacity: 1; }
 /* 클릭·스크롤로 닫을 때는 더 빠르게 */
