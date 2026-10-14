@@ -70,7 +70,7 @@
      (CSS/JS 의 ?v= 와 같은 역할)
      경로 자체에는 붙이지 않는다 — 확장자 추출이나 존재 확인이 쿼리에
      오염되면 안 되므로, <img src> 에 실을 때만 versioned() 로 감싼다. */
-  var ASSET_VERSION = '20261014d';
+  var ASSET_VERSION = '20261014e';
   function slidePath(key, n, ext) { return 'assets/slides/' + key + '/' + pad(n) + '.' + ext; }
   function versioned(src) { return src + '?v=' + ASSET_VERSION; }
 
@@ -621,6 +621,49 @@
     window.addEventListener('load', scheduleScan);
   }
 
+  /* ---------------------------------------------------------
+     클릭 유도 말풍선 — 첫 진입에 한 번만 보여준다
+     --------------------------------------------------------- */
+  function wireNavTip() {
+    var tip = document.getElementById('navTip');
+    if (!tip) return;
+
+    var done = false;
+    function hide(quick) {
+      if (done) return;
+      done = true;
+      if (quick) tip.classList.add('is-quick');
+      tip.classList.remove('is-on');
+      /* 페이드가 끝나면 아예 제거한다. 남겨두면 보이지도 않는
+         bob 애니메이션이 계속 돌아간다. */
+      window.setTimeout(function () {
+        if (tip.parentNode) tip.parentNode.removeChild(tip);
+      }, quick ? 200 : 500);
+    }
+
+    /* 네비가 숨는 폭(<1200px)에서는 띄우지 않는다 */
+    if (!tip.offsetParent) { hide(true); return; }
+
+    requestAnimationFrame(function () { tip.classList.add('is-on'); });
+    window.setTimeout(function () { hide(false); }, 3000);
+
+    /* 메뉴 클릭 시 즉시 */
+    var nav = document.querySelector('.nav-top');
+    if (nav) nav.addEventListener('click', function () { hide(true); });
+
+    /* 스크롤 시작 시 즉시. 단 wireStartAtTop 이 거는 초기 보정
+       스크롤에는 반응하지 않도록 조금 뒤에 기준점을 잡는다. */
+    window.setTimeout(function () {
+      if (done) return;
+      var base = window.scrollY;
+      window.addEventListener('scroll', function onScroll() {
+        if (Math.abs(window.scrollY - base) < 4) return;
+        window.removeEventListener('scroll', onScroll);
+        hide(true);
+      }, { passive: true });
+    }, 400);
+  }
+
   function init() {
     wireHeroCover();
     wireStartAtTop();
@@ -631,6 +674,7 @@
     wireHome();
     wireProjectTransition();
     wireProgress();
+    wireNavTip();
   }
 
   if (document.readyState === 'loading') {

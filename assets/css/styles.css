@@ -195,6 +195,57 @@ a.link-muted[data-resume] {
   flex-wrap: nowrap;      /* 절대 줄바꿈되지 않음 */
 }
 
+/* ---- 클릭 유도 말풍선 ("Click!") ----
+   첫 진입에만 01번 메뉴 아래에 떠서 흔들리다 사라진다.
+   li 를 기준 박스로 삼고 자신은 absolute 이므로 네비의 배치·간격에는
+   전혀 영향을 주지 않는다. pointer-events: none 이라 메뉴 클릭도 가리지 않는다. */
+.nav-top__first { position: relative; }
+
+.nav-tip {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 35;                /* 네비(30) 위, Contact 팝업(40) 아래 */
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: #222222;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -.1px;
+  line-height: 1.35;
+  white-space: nowrap;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, .18);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .45s ease;
+  animation: nav-tip-bob 1.5s ease-in-out infinite;
+}
+/* 메뉴를 가리키는 꼬리 */
+.nav-tip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-bottom-color: #222222;
+}
+.nav-tip.is-on { opacity: 1; }
+/* 클릭·스크롤로 닫을 때는 더 빠르게 */
+.nav-tip.is-quick { transition-duration: .16s; }
+
+/* translateX(-50%) 를 유지한 채로 위아래로만 움직인다 */
+@keyframes nav-tip-bob {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, -4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-tip { animation: none; transition: none; }
+}
+
 /* ---- Contact Us 호버 팝업 ----
    트리거와 팝업을 하나의 .contact 안에 두고 :hover 를 그 래퍼에 건다.
    덕분에 트리거 → 팝업으로 마우스를 옮겨도 호버가 끊기지 않는다.
