@@ -14,7 +14,7 @@
     /* 이력서 링크 — 이 한 줄만 바꾸면 전부 반영됩니다.
        http(s) 로 시작하면 새 탭에서 열리고,
        프로젝트 안의 파일 경로를 넣으면 곧바로 다운로드됩니다. */
-    resumeUrl: 'assets/docs/ShinDongju_Resume.pdf',
+    resumeUrl: 'assets/docs/ShinDongju_Resume.pdf?v=20261120',
     resumeDownloadName: 'ShinDongju_Resume.pdf',
     /* 상단 네비 Contact Us 는 전화번호 팝업(마크업)으로 대체되었고,
        모바일 패널·푸터의 Contact 링크만 이 주소를 사용합니다. */
