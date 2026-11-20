@@ -326,7 +326,13 @@ a.link-muted[data-resume] {
 .contact__pop {
   position: absolute;
   top: 100%;
-  right: 0;
+  /* 트리거 가로 중앙에 맞춘다. 데스크톱 네비는 1200px 이상에서만 보이고
+     그 폭에서 팝업 오른쪽 끝이 화면 안쪽에 충분히 들어오므로, 중앙 정렬이
+     잘림을 만들지 않는다. 혹시 모를 경우를 대비해 max-width 로 한 번 더 막는다. */
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  max-width: calc(100vw - 2 * var(--tablet-pad));
   margin-top: 6px;            /* 너무 벌어지지 않게 */
   z-index: 40;                /* 네비(30)·프로그레스바 위 */
   /* 라벨 / 값 2열 x 2행. 행 간격은 좁게 유지한다. */
