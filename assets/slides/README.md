@@ -6,8 +6,8 @@
 
 ```
 assets/slides/01/01.jpg, 02.jpg, 03.jpg ...   학원 ERP 서비스 고도화
-assets/slides/02/01.jpg, 02.jpg, 03.jpg ...   시니어 AI 케어 서비스 기획
-assets/slides/03/01.jpg, 02.jpg, 03.jpg ...   숏폼 OTT 서비스 런칭
+assets/slides/02/01.jpg, 02.jpg, 03.jpg ...   숏폼 OTT 서비스 런칭
+assets/slides/03/01.jpg, 02.jpg, 03.jpg ...   시니어 AI 케어 서비스 기획
 assets/slides/04/01.jpg, 02.jpg, 03.jpg ...   케이크 주문 서비스 구축
 ```
 
