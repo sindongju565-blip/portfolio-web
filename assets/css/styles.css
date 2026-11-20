@@ -96,22 +96,69 @@ a, button { transition: opacity .15s ease; }
 /* ======================= shared nav atoms ======================= */
 .nav-list { display: flex; }
 .nav-item {
+  position: relative;        /* 활성 언더라인(::after)의 기준 박스 */
   display: inline-flex;
   align-items: flex-start;   /* number sits as a superscript */
-  gap: 2px;
+  gap: 6px;
   white-space: nowrap;
 }
 .nav-item__label {
-  font-weight: 500;
+  font-weight: 400;
   font-size: var(--t-links-size);
   letter-spacing: var(--t-links-ls);
-  color: var(--c-text-1);
+  color: #666666;
+  transition: color .18s ease;
 }
 .nav-item__num {
-  font-weight: 500;
+  font-weight: 400;
   font-size: var(--t-display-size);
   letter-spacing: var(--t-display-ls);
-  color: var(--c-text-2);
+  color: #666666;
+  transition: color .18s ease;
+}
+
+/* ---- 활성 메뉴 ----
+   400 -> 600 으로 굵어지면 글자 폭이 늘어난다. 프로젝트 그룹은
+   translateX(-50%) 로 화면 중앙에 고정돼 있어서, 폭이 변하면 스크롤할
+   때마다 네 항목 전체가 좌우로 들썩인다. 그래서 각 글자의 자리를
+   처음부터 600 기준으로 잡아두고(::after), 실제 텍스트만 굵어지게 한다.
+   ::after 는 height:0 이라 높이에는 전혀 관여하지 않는다. */
+.nav-item__label::after,
+.nav-item__num::after {
+  content: attr(data-text);
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 600;
+  pointer-events: none;
+}
+.nav-item.is-active .nav-item__label,
+.nav-item.is-active .nav-item__num {
+  font-weight: 600;
+  color: #111111;
+}
+
+/* 텍스트 폭에 정확히 맞는 2px 언더라인. absolute 라 네비 높이에는
+   영향이 없고, scaleX 로 가운데에서 펴지며 바뀐다. */
+.nav-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 5px);
+  height: 2px;
+  background: #111111;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.nav-item.is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-item__label, .nav-item__num, .nav-item::after { transition: none; }
 }
 .link-muted {
   font-weight: 500;
@@ -407,7 +454,7 @@ a.link-muted[data-resume] {
   align-items: flex-start;
   gap: 24px;
 }
-.nav-mobile__content .nav-item__num { color: var(--c-text-3); }
+.nav-mobile__content .nav-item__num { color: #666666; }
 .nav-mobile__content hr.rule { width: 100%; }
 
 /* ==================== deck-wide shared bits ==================== */

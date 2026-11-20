@@ -444,6 +444,63 @@
   }
 
   /* ---------------------------------------------------------
+     활성 메뉴 — 지금 보고 있는 프로젝트를 네비에 표시한다
+     스티키 바 바로 아래 지점(probe)이 어느 프로젝트 섹션 안에 있는지로
+     판정한다. 표지·이력서·Index 구간에서는 어떤 메뉴도 켜지 않는다.
+     --------------------------------------------------------- */
+  var refreshNavActive = null;
+
+  function wireNavActive() {
+    var links = [].slice.call(document.querySelectorAll('.nav-item[href^="#project-"]'));
+    if (!links.length) return;
+
+    var keys = Object.keys(PROJECTS);
+    var current;
+
+    function apply(key) {
+      if (key === current) return;
+      current = key;
+      for (var i = 0; i < links.length; i++) {
+        var a = links[i];
+        var on = a.getAttribute('href') === '#project-' + key;
+        a.classList.toggle('is-active', on);
+        if (on) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      }
+    }
+
+    function update() {
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      var probe = y + stickyOffset() + 1;
+      /* "마지막으로 지나친 섹션" 으로 잡는다. 경계를 둘 다 보는 방식과
+         달리 푸터까지 내려가도 04 가 켜진 채로 남고, 섹션 사이에 1px
+         틈이 생겨도 깜빡이지 않는다. 표지~Index 구간에서는 지나친
+         섹션이 없으므로 null 이 되어 아무 메뉴도 켜지지 않는다. */
+      var found = null;
+      for (var i = 0; i < keys.length; i++) {
+        var el = document.getElementById('project-' + keys[i]);
+        if (el && probe >= el.getBoundingClientRect().top + y) found = keys[i];
+      }
+      apply(found);
+    }
+
+    /* 클릭 즉시 반응 — goToProject 는 이미지 디코딩을 기다리느라
+       스크롤이 조금 늦게 일어날 수 있다. 캡처 단계에서 먼저 켜 둔다. */
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href^="#project-"]') : null;
+      if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+      var key = a.getAttribute('href').replace('#project-', '');
+      if (PROJECTS[key]) apply(key);
+    }, true);
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    window.addEventListener('load', update);
+    refreshNavActive = update;
+    update();
+  }
+
+  /* ---------------------------------------------------------
      Project transition
      Replaces the long smooth scroll between projects. Nothing here waits
      on a timer: the overlay closes as soon as the target project's opening
@@ -475,6 +532,7 @@
     var y = Math.max(0, Math.round(el.getBoundingClientRect().top + window.pageYOffset - stickyOffset()));
     scrollToInstant(y);
     if (typeof refreshProgress === 'function') refreshProgress();
+    if (typeof refreshNavActive === 'function') refreshNavActive();
   }
 
   function setProgress(p) {
@@ -674,6 +732,7 @@
     wireHome();
     wireProjectTransition();
     wireProgress();
+    wireNavActive();
     wireNavTip();
   }
 
